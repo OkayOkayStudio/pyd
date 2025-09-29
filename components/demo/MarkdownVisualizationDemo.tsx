@@ -148,7 +148,7 @@ export default function MarkdownVisualizationDemo() {
                 </ul>
               </div>
               
-              {currentDemo.insights && (
+              {'insights' in currentDemo && currentDemo.insights && (
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Insights</h3>
                   <ul className="space-y-1">

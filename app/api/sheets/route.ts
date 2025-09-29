@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getGoogleSheetsData, getAllSheets, convertToCSV } from '@/lib/googleSheets';
+import { getGoogleSheetsData, getAllSheets, convertToCSV, SheetData } from '@/lib/googleSheets';
 
 export async function GET(request: Request) {
   try {
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
     if (format === 'csv' && 'values' in data) {
       // Return CSV format
-      const csvContent = convertToCSV(data);
+      const csvContent = convertToCSV(data as SheetData);
       return new NextResponse(csvContent, {
         headers: {
           'Content-Type': 'text/csv',

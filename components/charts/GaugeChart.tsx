@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+// @ts-ignore - react-gauge-chart doesn't have types
 import GaugeComponent from 'react-gauge-chart'
 
 interface GaugeData {
@@ -17,7 +18,11 @@ interface GaugeData {
 }
 
 interface GaugeChartProps {
-  data: GaugeData[]
+  data?: GaugeData[]
+  value?: number
+  maxValue?: number
+  target?: number
+  color?: string
   width?: number
   height?: number
   colors?: string[]
@@ -27,7 +32,11 @@ interface GaugeChartProps {
 }
 
 export default function GaugeChart({ 
-  data, 
+  data,
+  value,
+  maxValue,
+  target,
+  color,
   width = 300, 
   height = 200, 
   colors = ['#00C853', '#FFB700', '#FF4444'],
@@ -36,17 +45,30 @@ export default function GaugeChart({
   config 
 }: GaugeChartProps) {
   
-  if (!data || data.length === 0) {
+  // Support both usage patterns: data array or individual props
+  let gaugeData: GaugeData
+  
+  if (data && data.length > 0) {
+    gaugeData = data[0]
+  } else if (value !== undefined && maxValue !== undefined) {
+    gaugeData = {
+      value,
+      max: maxValue,
+      target,
+      label: ''
+    }
+  } else {
     return <div className="text-gray-500">No gauge data available</div>
   }
 
-  const gaugeData = data[0] // Single gauge for now
   const percentage = gaugeData.value / gaugeData.max
 
-  // Define color segments based on zones or default
+  // Define color segments based on zones, single color, or default
   const segments = gaugeData.zones ? gaugeData.zones.length : 3
   const segmentColors = gaugeData.zones 
     ? gaugeData.zones.map(zone => zone.color)
+    : color
+    ? [color]
     : colors.slice(0, segments)
 
   return (

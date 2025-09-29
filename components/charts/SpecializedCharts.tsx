@@ -8,13 +8,16 @@ interface GaugeChartProps {
   value: number
   min?: number
   max?: number
+  maxValue?: number
   title?: string
   unit?: string
+  color?: string
   zones?: { min: number; max: number; color: string; label: string }[]
 }
 
-export function GaugeChart({ value, min = 0, max = 100, title, unit = '', zones }: GaugeChartProps) {
-  const percentage = ((value - min) / (max - min)) * 100
+export function GaugeChart({ value, min = 0, max = 100, maxValue, title, unit = '', color, zones }: GaugeChartProps) {
+  const actualMax = maxValue || max
+  const percentage = ((value - min) / (actualMax - min)) * 100
   const angle = (percentage / 100) * 180 - 90 // Convert to degrees (-90 to +90)
 
   const defaultZones = zones || [
@@ -39,8 +42,8 @@ export function GaugeChart({ value, min = 0, max = 100, title, unit = '', zones 
           
           {/* Zone arcs */}
           {defaultZones.map((zone, index) => {
-            const startAngle = ((zone.min - min) / (max - min)) * 180
-            const endAngle = ((zone.max - min) / (max - min)) * 180
+            const startAngle = ((zone.min - min) / (actualMax - min)) * 180
+            const endAngle = ((zone.max - min) / (actualMax - min)) * 180
             const startX = 100 + 80 * Math.cos((startAngle - 90) * Math.PI / 180)
             const startY = 80 + 80 * Math.sin((startAngle - 90) * Math.PI / 180)
             const endX = 100 + 80 * Math.cos((endAngle - 90) * Math.PI / 180)

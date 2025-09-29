@@ -63,10 +63,10 @@ export default function FunnelChart({
       color: d.color || colors[i % colors.length],
       // Trapezoid points (for funnel effect)
       points: [
-        { x: centerX - halfWidth, y: y },
-        { x: centerX + halfWidth, y: y },
-        { x: centerX + halfWidth * 0.8, y: y + stageHeight - 5 },
-        { x: centerX - halfWidth * 0.8, y: y + stageHeight - 5 }
+        [centerX - halfWidth, y],
+        [centerX + halfWidth, y],
+        [centerX + halfWidth * 0.8, y + stageHeight - 5],
+        [centerX - halfWidth * 0.8, y + stageHeight - 5]
       ]
     }
   })
@@ -82,7 +82,7 @@ export default function FunnelChart({
             <Group key={i}>
               {/* Funnel segment */}
               <Polygon
-                points={segment.points}
+                points={segment.points as [number, number][]}
                 fill={segment.color}
                 stroke="white"
                 strokeWidth={2}

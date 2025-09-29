@@ -980,8 +980,8 @@ export const SLIDE_CHART_DATA = {
     )
   },
 
-  // Technical Checklist - Stacked bar
-  'technical-checklist': {
+  // Technical Checklist - Custom status bar
+  'technical-checklist-status': {
     type: 'custom',
     component: () => (
       <div className="space-y-4">
@@ -1044,7 +1044,7 @@ export const SLIDE_CHART_DATA = {
   },
 
   // Content Quality - Horizontal bar chart
-  'content-quality': {
+  'content-quality-horizontal': {
     type: 'horizontal-bar',
     component: () => (
       <ChartFactory
@@ -1098,7 +1098,7 @@ export const SLIDE_CHART_DATA = {
   },
 
   // Keyword Opportunities - Scatter plot
-  'keyword-opportunities': {
+  'keyword-opportunities-scatter': {
     type: 'scatter',
     component: () => (
       <ChartFactory
@@ -1245,25 +1245,36 @@ export const SLIDE_CHART_DATA = {
   },
 
   // Priority Matrix - 2x2 grid
-  'priority-matrix': {
+  'priority-matrix-2x2': {
     type: 'matrix',
     component: () => (
       <MatrixChart
         title="Strategic Priority Matrix"
-        xAxisLabel="Implementation Effort"
-        yAxisLabel="Business Impact"
+        xLabel="Implementation Effort"
+        yLabel="Business Impact"
+        data={[
+          { name: 'Sitemap', x: 2, y: 8 },
+          { name: 'Canonicals', x: 3, y: 7 },
+          { name: 'Meta Tags', x: 1, y: 6 },
+          { name: 'Link Building', x: 8, y: 9 },
+          { name: 'Content Strategy', x: 7, y: 8 },
+          { name: 'Social Media', x: 4, y: 3 },
+          { name: 'Minor Fixes', x: 2, y: 2 },
+          { name: 'Complex Migrations', x: 9, y: 2 },
+          { name: 'Experimental Features', x: 8, y: 1 }
+        ]}
         quadrants={[
-          { name: 'Quick Wins', color: CHART_COLORS.status.good, items: ['Sitemap', 'Canonicals', 'Meta Tags'] },
-          { name: 'Major Projects', color: CHART_COLORS.status.high, items: ['Link Building', 'Content Strategy'] },
-          { name: 'Fill-ins', color: CHART_COLORS.status.medium, items: ['Social Media', 'Minor Fixes'] },
-          { name: 'Avoid', color: CHART_COLORS.status.critical, items: ['Complex Migrations', 'Experimental Features'] }
+          { label: 'Quick Wins', color: CHART_COLORS.status.good },
+          { label: 'Major Projects', color: CHART_COLORS.status.high },
+          { label: 'Fill-ins', color: CHART_COLORS.status.medium },
+          { label: 'Avoid', color: CHART_COLORS.status.critical }
         ]}
       />
     )
   },
 
   // Investment - Pie and stacked bar charts  
-  'investment': {
+  'investment-breakdown': {
     type: 'custom',
     component: () => (
       <div className="grid grid-cols-2 gap-6">
@@ -1323,7 +1334,7 @@ export const SLIDE_CHART_DATA = {
   },
 
   // Success KPIs - Dashboard with gauges
-  'success-kpis': {
+  'success-kpis-dashboard': {
     type: 'custom',
     component: () => (
       <div className="grid grid-cols-2 gap-6">
@@ -1348,7 +1359,7 @@ export const SLIDE_CHART_DATA = {
   },
 
   // CTA Sitemap - Action card with before/after
-  'cta-sitemap': {
+  'cta-sitemap-action': {
     type: 'custom',
     component: () => (
       <div className="space-y-6">
@@ -1387,25 +1398,26 @@ export const SLIDE_CHART_DATA = {
   },
 
   // Next Steps - Timeline with milestones
-  'next-steps': {
+  'next-steps-timeline': {
     type: 'timeline',
     component: () => (
       <TimelineChart
         title="Critical Actions Timeline"
-        items={[
-          { date: 'TODAY', task: 'Submit sitemap to Google', priority: 'critical' },
-          { date: 'DAY 2', task: 'Remove /404 from sitemap', priority: 'critical' },
-          { date: 'WEEK 1', task: 'Fix canonical tags (37 pages)', priority: 'high' },
-          { date: 'WEEK 1', task: 'Investigate traffic drop', priority: 'high' },
-          { date: 'WEEK 2', task: 'Begin speed optimization', priority: 'medium' },
-          { date: 'WEEK 3', task: 'Start link building campaign', priority: 'medium' }
+        data={[
+          { name: 'Submit sitemap to Google', start: 0, duration: 1, priority: 'high' },
+          { name: 'Remove /404 from sitemap', start: 1, duration: 1, priority: 'high' },
+          { name: 'Fix canonical tags (37 pages)', start: 2, duration: 5, priority: 'high' },
+          { name: 'Investigate traffic drop', start: 2, duration: 5, priority: 'high' },
+          { name: 'Begin speed optimization', start: 7, duration: 7, priority: 'medium' },
+          { name: 'Start link building campaign', start: 14, duration: 7, priority: 'medium' }
         ]}
+        totalDays={30}
       />
     )
   },
 
   // Contact - Clean contact layout
-  'contact': {
+  'contact-info': {
     type: 'custom',
     component: () => (
       <div className="space-y-6 text-center">
@@ -1455,11 +1467,10 @@ export default function SlideChart({ slideId, className = '', slideData }: Slide
 
   // For the keyword opportunities table, pass the slide data
   const ChartComponent = chartConfig.component
-  const componentProps = slideId === 'keyword-opportunities-detailed' ? { slideData } : {}
 
   return (
     <div className={`rounded-xl border bg-gray-500/10 border-[rgb(130_130_130_/_16%)]  p-4 ${className}`}>
-      <ChartComponent {...componentProps} />
+      <ChartComponent />
     </div>
   )
 }

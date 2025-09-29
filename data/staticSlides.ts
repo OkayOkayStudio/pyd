@@ -950,36 +950,36 @@ const markdownSlides: MarkdownSlide[] = [
 function getSlideComponent(slideId: string, markdownData: MarkdownSlide): React.ComponentType<any> {
   // Special handling for performance slide
   if (slideId === 'performance') {
-    return () => React.createElement(PerformanceSlide, { markdownData })
+    return () => React.createElement(PerformanceSlide, { markdownData } as any as any)
   }
   
   // Special handling for organic keywords slide
   if (slideId === 'organic-keywords') {
-    return () => React.createElement(OrganicKeywordsSlide, { markdownData })
+    return () => React.createElement(OrganicKeywordsSlide, { markdownData } as any as any)
   }
   
   // Special handling for opportunities slide
   if (slideId === 'opportunities') {
-    return () => React.createElement(OpportunitiesSlide, { markdownData })
+    return () => React.createElement(OpportunitiesSlide, { markdownData } as any)
   }
   
   // Special handling for recommendations slide
   if (slideId === 'recommendations') {
-    return () => React.createElement(RecommendationsSlide, { markdownData })
+    return () => React.createElement(RecommendationsSlide, { markdownData } as any)
   }
   
   // Special handling for details slide
   if (slideId === 'details') {
-    return () => React.createElement(DetailsSlide, { markdownData })
+    return () => React.createElement(DetailsSlide, { markdownData } as any)
   }
   
   // Special handling for competitor link analysis slide
   if (slideId === 'competitor-link-analysis') {
-    return () => React.createElement(CompetitorLinkAnalysisSlide, { markdownData })
+    return () => React.createElement(CompetitorLinkAnalysisSlide, { markdownData } as any)
   }
   
   // Return DefaultSlide with markdown data bound for all other slides
-  return () => React.createElement(DefaultSlide, { markdownData })
+  return () => React.createElement(DefaultSlide, { markdownData } as any)
 }
 
 // Create slides data structure

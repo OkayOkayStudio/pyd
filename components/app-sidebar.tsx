@@ -117,7 +117,7 @@ export function AppSidebar({
                   }
                   
                   const sectionTitle = slide.section
-                    ? slide.section.split('-').map(word => 
+                    ? slide.section.split('-').map((word: string) => 
                         word.charAt(0).toUpperCase() + word.slice(1)
                       ).join(' ')
                     : 'General'

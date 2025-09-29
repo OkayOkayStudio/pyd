@@ -5,25 +5,13 @@ import { ReactElement } from 'react'
 
 // Dynamically import chart components to avoid SSR issues
 const BarChart = dynamic(() => import('./BarChart'), { ssr: false })
-const LineChart = dynamic(() => import('./LineChart'), { ssr: false })
 const AreaChart = dynamic(() => import('./AreaChart'), { ssr: false })
-const PieChart = dynamic(() => import('./PieChart'), { ssr: false })
-const ScatterChart = dynamic(() => import('./ScatterChart'), { ssr: false })
 const WaterfallChart = dynamic(() => import('./WaterfallChart'), { ssr: false })
 const FunnelChart = dynamic(() => import('./FunnelChart'), { ssr: false })
 const GaugeChart = dynamic(() => import('./GaugeChart'), { ssr: false })
-const PyramidChart = dynamic(() => import('./PyramidChart'), { ssr: false })
-const TreeDiagram = dynamic(() => import('./TreeDiagram'), { ssr: false })
-const HeatMap = dynamic(() => import('./HeatMap'), { ssr: false })
-const MatrixChart = dynamic(() => import('./MatrixChart'), { ssr: false })
-const TimelineChart = dynamic(() => import('./TimelineChart'), { ssr: false })
-const GanttChart = dynamic(() => import('./GanttChart'), { ssr: false })
-const BubbleChart = dynamic(() => import('./BubbleChart'), { ssr: false })
-const DashboardGauges = dynamic(() => import('./DashboardGauges'), { ssr: false })
 
 export interface ChartConfig {
-  type: 'bar' | 'line' | 'area' | 'pie' | 'scatter' | 'waterfall' | 'funnel' | 'gauge' | 
-        'pyramid' | 'tree' | 'heatmap' | 'matrix' | 'timeline' | 'gantt' | 'bubble' | 'dashboard'
+  type: 'bar' | 'area' | 'waterfall' | 'funnel' | 'gauge'
   data: any[]
   width?: number
   height?: number
@@ -56,17 +44,8 @@ export default function ChartRenderer({ chart, className = '' }: ChartRendererPr
       case 'bar':
         return <BarChart {...baseProps} xAxis={chart.xAxis} yAxis={chart.yAxis} />
       
-      case 'line':
-        return <LineChart {...baseProps} xAxis={chart.xAxis} yAxis={chart.yAxis} />
-      
       case 'area':
         return <AreaChart {...baseProps} xAxis={chart.xAxis} yAxis={chart.yAxis} />
-      
-      case 'pie':
-        return <PieChart {...baseProps} />
-      
-      case 'scatter':
-        return <ScatterChart {...baseProps} xAxis={chart.xAxis} yAxis={chart.yAxis} />
       
       case 'waterfall':
         return <WaterfallChart {...baseProps} />
@@ -76,30 +55,6 @@ export default function ChartRenderer({ chart, className = '' }: ChartRendererPr
       
       case 'gauge':
         return <GaugeChart {...baseProps} />
-      
-      case 'pyramid':
-        return <PyramidChart {...baseProps} />
-      
-      case 'tree':
-        return <TreeDiagram {...baseProps} />
-      
-      case 'heatmap':
-        return <HeatMap {...baseProps} />
-      
-      case 'matrix':
-        return <MatrixChart {...baseProps} />
-      
-      case 'timeline':
-        return <TimelineChart {...baseProps} />
-      
-      case 'gantt':
-        return <GanttChart {...baseProps} />
-      
-      case 'bubble':
-        return <BubbleChart {...baseProps} xAxis={chart.xAxis} yAxis={chart.yAxis} />
-      
-      case 'dashboard':
-        return <DashboardGauges {...baseProps} />
       
       default:
         return (

@@ -103,7 +103,7 @@ export default function AreaChart({
               x={data[breakEvenPoint][xAxis]} 
               stroke="#333" 
               strokeDasharray="5 5"
-              label={{ value: "Break-even", position: "topRight" }}
+              label={{ value: "Break-even", position: "top" }}
             />
           )}
           

@@ -76,13 +76,13 @@ interface SlideData {
 
 export const sections = [
   { id: 'statement-of-work', name: 'Statement of Work & Agreement', icon: FileText },
-  { id: 'technical-seo', name: 'Technical SEO Analysis', icon: Wrench },
-  { id: 'on-page-seo', name: 'On-Page SEO Optimization', icon: Edit },
-  { id: 'content-strategy', name: 'Content & Strategy Development', icon: Target },
-  { id: 'off-page-seo', name: 'Off-Page SEO & Authority', icon: ExternalLink },
-  { id: 'analytics-reporting', name: 'Analytics & Performance Tracking', icon: BarChart },
-  { id: 'local-seo', name: 'Local SEO Optimization', icon: MapPin },
-  { id: 'geo', name: 'Generative Engine Optimization', icon: Zap }
+  { id: 'technical-seo', name: 'Technical SEO Analysis', icon: Wrench as any },
+  { id: 'on-page-seo', name: 'On-Page SEO Optimization', icon: Edit as any },
+  { id: 'content-strategy', name: 'Content & Strategy Development', icon: Target as any },
+  { id: 'off-page-seo', name: 'Off-Page SEO & Authority', icon: ExternalLink as any },
+  { id: 'analytics-reporting', name: 'Analytics & Performance Tracking', icon: BarChart as any },
+  { id: 'local-seo', name: 'Local SEO Optimization', icon: MapPin as any },
+  { id: 'geo', name: 'Generative Engine Optimization', icon: Zap as any }
 ]
 
 export const slides: SlideData[] = [
@@ -92,7 +92,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Statement of Work & Agreement', 
       description: 'Project scope, investment breakdown, and next steps for your SEO transformation.',
-      icon: FileText
+      icon: FileText as any
     }),
     section: 'statement-of-work',
     sectionType: 'intro',
@@ -119,7 +119,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Technical SEO Analysis', 
       description: 'Deep dive into technical issues blocking your search engine performance.',
-      icon: Wrench
+      icon: Wrench as any
     }),
     section: 'technical-seo',
     sectionType: 'intro',
@@ -196,8 +196,6 @@ export const slides: SlideData[] = [
     data: {
       headline: '90-Day Recovery Action Plan',
       subtitle: 'Strategic Roadmap to SEO Success',
-      phases: metrics.actionPlan,
-      quickActions: metrics.quickActions,
       keyPoints: [
         'Phase 1: Emergency stabilization (30 days)',
         'Phase 2: Content & technical foundation (30 days)',
@@ -227,7 +225,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'On-Page SEO Optimization', 
       description: 'Content optimization opportunities and keyword strategy improvements.',
-      icon: Edit
+      icon: Edit as any
     }),
     section: 'on-page-seo',
     sectionType: 'intro',
@@ -254,7 +252,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Content & Strategy Development', 
       description: 'Strategic content planning and competitive positioning analysis.',
-      icon: Target
+      icon: Target as any
     }),
     section: 'content-strategy',
     sectionType: 'intro',
@@ -270,7 +268,6 @@ export const slides: SlideData[] = [
       headline: 'Competitive Landscape Analysis',
       subtitle: 'Significant Performance Gaps Across All Metrics',
       tables: [chartData.competitorTableData],
-      competitorData: metrics.competitorComparison,
       keyPoints: [
         'PYD ranks last across all key performance metrics',
         'Competitors achieve 100x more monthly traffic',
@@ -300,7 +297,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Off-Page SEO & Authority', 
       description: 'Domain authority building and strategic link acquisition planning.',
-      icon: ExternalLink
+      icon: ExternalLink as any
     }),
     section: 'off-page-seo',
     sectionType: 'intro',
@@ -327,7 +324,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Analytics & Performance Tracking', 
       description: 'Current performance metrics and success measurement framework.',
-      icon: BarChart
+      icon: BarChart as any
     }),
     section: 'analytics-reporting',
     sectionType: 'intro',
@@ -392,7 +389,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Local SEO Optimization', 
       description: 'Geographic targeting and local search optimization opportunities.',
-      icon: MapPin
+      icon: MapPin as any
     }),
     section: 'local-seo',
     sectionType: 'intro',
@@ -405,7 +402,7 @@ export const slides: SlideData[] = [
     component: () => SectionIntroSlide({ 
       title: 'Generative Engine Optimization', 
       description: 'Preparing for AI-powered search and structured data optimization.',
-      icon: Zap
+      icon: Zap as any
     }),
     section: 'geo',
     sectionType: 'intro',

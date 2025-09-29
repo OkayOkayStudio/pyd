@@ -24,7 +24,8 @@
       "mcp__shadcn__get_add_command_for_items",
       "mcp__shadcn__get_item_examples_from_registries",
       "Bash(timeout 10 curl -s \"http://localhost:3001/api/details\")",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

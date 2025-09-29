@@ -44,7 +44,12 @@ export default function KeywordOpportunitiesSlide() {
 
       <div className="space-y-4 mb-8">
         {keywordOpportunities.map((keyword, index) => {
-          const PriorityIcon = getPriorityIcon(keyword.priority)
+          // Calculate priority based on position and volume
+          const priority = keyword.position > 20 ? 'high' : keyword.volume > 80 ? 'medium' : 'low'
+          const PriorityIcon = getPriorityIcon(priority as 'high' | 'medium' | 'low')
+          
+          // Calculate difficulty based on volume
+          const difficulty = keyword.volume > 80 ? 'High' : keyword.volume > 40 ? 'Medium' : 'Low'
           
           return (
             <motion.div
@@ -57,12 +62,12 @@ export default function KeywordOpportunitiesSlide() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <PriorityIcon size={12} className={
-                    keyword.priority === 'High' ? '' : 
-                    keyword.priority === 'Medium' ? '' : ''
+                    priority === 'high' ? '' : 
+                    priority === 'medium' ? '' : ''
                   } />
                   <div>
                     <div className="text-xl font-light ">{keyword.keyword}</div>
-                    <div className="text-sm ">{keyword.intent}</div>
+                    <div className="text-sm ">Volume: {keyword.volume}</div>
                   </div>
                 </div>
                 
@@ -72,20 +77,20 @@ export default function KeywordOpportunitiesSlide() {
                     <div className="text-xs ">Monthly Searches</div>
                   </div>
                   
-                  <div className={`px-3 py-1 rounded-lg border text-left ${getDifficultyColor(keyword.difficulty)}`}>
-                    <div className="font-light">{keyword.difficulty}</div>
+                  <div className={`px-3 py-1 rounded-lg border text-left ${getDifficultyColor(difficulty)}`}>
+                    <div className="font-light">{difficulty}</div>
                     <div className="text-xs opacity-70">Difficulty</div>
                   </div>
                   
                   <div className="text-left">
-                    <div className="text-2xl font-light ">{keyword.currentRank || 'N/A'}</div>
+                    <div className="text-2xl font-light ">{keyword.position}</div>
                     <div className="text-xs ">Current Rank</div>
                   </div>
                 </div>
               </div>
               
               <div className="mt-4 text-sm ">
-                <strong className="">Opportunity:</strong> {keyword.opportunity}
+                <strong className="">Opportunity:</strong> Move from position {keyword.position} to {keyword.target}
               </div>
             </motion.div>
           )

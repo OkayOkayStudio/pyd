@@ -179,7 +179,7 @@ export default function KeywordOpportunitiesTable({ slideData }: KeywordOpportun
       let aValue = a[sortField]
       let bValue = b[sortField]
       
-      if (typeof aValue === 'string') {
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
         aValue = aValue.toLowerCase()
         bValue = bValue.toLowerCase()
       }

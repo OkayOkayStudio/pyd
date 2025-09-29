@@ -121,7 +121,7 @@ export default function DetailsTable({ className }: DetailsTableProps) {
                       )
                     }
                     
-                    return <div className="font-medium">{value || '-'}</div>
+                    return <div className="font-medium">{(typeof value === 'string' || typeof value === 'number') ? value : '-'}</div>
                   },
                 } as ColumnDef<any>
               })
@@ -186,7 +186,7 @@ export default function DetailsTable({ className }: DetailsTableProps) {
   }
 
   const searchableColumns = columns.slice(0, 3) // Use first 3 columns for search
-  const firstSearchableColumn = searchableColumns[0]?.accessorKey
+  const firstSearchableColumn = (searchableColumns[0] as any)?.accessorKey
 
   return (
     <div className={`w-full space-y-4 ${className}`}>

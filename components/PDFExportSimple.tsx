@@ -51,12 +51,10 @@ export default function PDFExportSimple({ isDarkMode, currentSlide, slideNames, 
           const canvas = await html2canvas(contentElement, {
             width: 1920,
             height: 1080,
-            scale: 0.5,
-            backgroundColor: isDarkMode ? '#212126' : '#f3f4f6',
+            background: isDarkMode ? '#212126' : '#f3f4f6',
             logging: false,
             useCORS: true,
-            allowTaint: true,
-            foreignObjectRendering: true
+            allowTaint: true
           })
 
           if (!isFirstPage) {

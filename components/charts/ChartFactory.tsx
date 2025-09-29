@@ -267,21 +267,22 @@ export function SimpleScatterChart({ data, title, height = 300, colors = [CHART_
 
 // Chart factory component
 export default function ChartFactory({ type, ...props }: ChartConfig) {
+  const chartProps = { ...props, type } as ChartConfig;
   switch (type) {
     case 'bar':
-      return <SimpleBarChart {...props} />
+      return <SimpleBarChart {...chartProps} />
     case 'horizontal-bar':
-      return <HorizontalBarChart {...props} />
+      return <HorizontalBarChart {...chartProps} />
     case 'stacked-bar':
-      return <StackedBarChart {...props} />
+      return <StackedBarChart {...chartProps} />
     case 'pie':
-      return <SimplePieChart {...props} />
+      return <SimplePieChart {...chartProps} />
     case 'line':
-      return <SimpleLineChart {...props} />
+      return <SimpleLineChart {...chartProps} />
     case 'area':
-      return <SimpleAreaChart {...props} />
+      return <SimpleAreaChart {...chartProps} />
     case 'scatter':
-      return <SimpleScatterChart {...props} />
+      return <SimpleScatterChart {...chartProps} />
     default:
       return <div className="h-64 flex items-center justify-center text-gray-500">Chart type not supported: {type}</div>
   }
