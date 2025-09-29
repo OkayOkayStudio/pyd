@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/paularbuthnot/OkayOkay/**)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install)",
+      "Bash(pkill:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx tailwindcss init:*)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npx:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "mcp__shadcn__get_project_registries",
+      "mcp__shadcn__search_items_in_registries",
+      "mcp__shadcn__view_items_in_registries",
+      "mcp__shadcn__get_add_command_for_items",
+      "mcp__shadcn__get_item_examples_from_registries",
+      "Bash(timeout 10 curl -s \"http://localhost:3001/api/details\")",
+      "Bash(grep:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "shadcn"
+  ]
+}
