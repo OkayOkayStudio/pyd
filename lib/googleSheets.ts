@@ -11,11 +11,25 @@ export interface SheetData {
 
 export async function getGoogleSheetsData(range: string = 'A:Z'): Promise<SheetData> {
   try {
-    // Load service account credentials
-    const auth = new google.auth.GoogleAuth({
-      keyFile: SERVICE_ACCOUNT_KEY_PATH,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-    });
+    // Load service account credentials from environment variables or file
+    let auth;
+    
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+      // Use environment variables for production (Vercel)
+      auth = new google.auth.GoogleAuth({
+        credentials: {
+          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+          private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        },
+        scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+      });
+    } else {
+      // Fallback to file for local development
+      auth = new google.auth.GoogleAuth({
+        keyFile: SERVICE_ACCOUNT_KEY_PATH,
+        scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+      });
+    }
 
     // Create sheets API client
     const sheets = google.sheets({ version: 'v4', auth });
@@ -49,10 +63,25 @@ export async function getGoogleSheetsData(range: string = 'A:Z'): Promise<SheetD
 
 export async function getAllSheets(): Promise<{ [key: string]: SheetData }> {
   try {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: SERVICE_ACCOUNT_KEY_PATH,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-    });
+    // Load service account credentials from environment variables or file
+    let auth;
+    
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+      // Use environment variables for production (Vercel)
+      auth = new google.auth.GoogleAuth({
+        credentials: {
+          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+          private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        },
+        scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+      });
+    } else {
+      // Fallback to file for local development
+      auth = new google.auth.GoogleAuth({
+        keyFile: SERVICE_ACCOUNT_KEY_PATH,
+        scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+      });
+    }
 
     const sheets = google.sheets({ version: 'v4', auth });
 

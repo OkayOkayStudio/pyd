@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getGoogleSheetsData, getAllSheets, convertToCSV, SheetData } from '@/lib/googleSheets';
 
+// Force dynamic to avoid static generation issues with request.url
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
