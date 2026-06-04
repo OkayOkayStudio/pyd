@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useSheet } from '@/hooks/useGoogleSheets';
+import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 import {
   METRIC_CONFIGS,
   transformSheetsDataToChart,
@@ -158,21 +159,7 @@ export default function PerformanceChart({
   );
 
   if (loading) {
-    return (
-      <Card className={className}>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            Performance
-            <ChevronDown className="h-4 w-4" />
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center h-[400px]">
-            <div className="text-gray-500">Loading chart data...</div>
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return <ChartSkeleton className={className} height="h-[500px]" />;
   }
 
   if (error) {

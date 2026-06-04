@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import DetailsTable from '@/components/DetailsTable';
+import { TableSkeleton } from '@/components/ui/table-skeleton';
 
 interface DetailsSlideProps {
   isDarkMode?: boolean;
@@ -65,11 +66,8 @@ export default function DetailsSlide({ isDarkMode = false }: DetailsSlideProps) 
             {tableReady ? (
               <DetailsTable className="bg-white shadow-lg rounded-lg p-6" />
             ) : (
-              <div className="flex items-center justify-center h-[500px] bg-white shadow-lg rounded-lg">
-                <div className="text-center">
-                  <div className="text-gray-500 mb-2">🔧 Loading data table after animation...</div>
-                  <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                </div>
+              <div className="bg-white shadow-lg rounded-lg p-6">
+                <TableSkeleton rows={8} columns={5} />
               </div>
             )}
           </div>

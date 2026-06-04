@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PerformanceChart from '@/components/PerformanceChart';
+import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 
 interface PerformanceSlideProps {
   isDarkMode?: boolean;
@@ -56,17 +57,12 @@ export default function PerformanceSlide({ isDarkMode = false }: PerformanceSlid
             }}
           >
             {chartReady ? (
-              <PerformanceChart 
+              <PerformanceChart
                 sheetName="www.pyd.agency_perf_2025-09-25_04-37-50"
                 className="bg-white w-full"
               />
             ) : (
-              <div className="flex items-center justify-center h-[500px] bg-white rounded">
-                <div className="text-center">
-                  <div className="text-gray-500 mb-2">🔧 Loading chart after animation...</div>
-                  <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                </div>
-              </div>
+              <ChartSkeleton className="bg-white w-full" height="h-[500px]" />
             )}
           </div>
         </div>
