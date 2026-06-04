@@ -32,14 +32,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { TableSkeleton } from "@/components/ui/table-skeleton"
+import type { DetailRecord } from "@/lib/types"
 
 interface DetailsTableProps {
   className?: string;
 }
 
 export default function DetailsTable({ className }: DetailsTableProps) {
-  const [data, setData] = useState<any[]>([])
-  const [columns, setColumns] = useState<ColumnDef<any>[]>([])
+  const [data, setData] = useState<DetailRecord[]>([])
+  const [columns, setColumns] = useState<ColumnDef<DetailRecord>[]>([])
   const [headers, setHeaders] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -74,11 +76,11 @@ export default function DetailsTable({ className }: DetailsTableProps) {
           
           // Generate columns dynamically based on the first row of data
           if (result.data.length > 0 && result.headers) {
-            const dynamicColumns: ColumnDef<any>[] = result.headers
+            const dynamicColumns: ColumnDef<DetailRecord>[] = result.headers
               .filter((header: string) => header && header.trim()) // Filter out empty headers
-              .map((header: string, index: number) => {
+              .map((header: string) => {
                 const cleanHeader = header.trim().replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-                
+
                 return {
                   accessorKey: cleanHeader,
                   header: ({ column }) => {
@@ -95,12 +97,12 @@ export default function DetailsTable({ className }: DetailsTableProps) {
                   },
                   cell: ({ row }) => {
                     const value = row.getValue(cleanHeader)
-                    
+
                     // Handle different data types for better display
                     if (typeof value === 'number') {
                       return <div className="text-right font-medium">{value.toLocaleString()}</div>
                     }
-                    
+
                     // Handle URLs
                     if (typeof value === 'string' && value.startsWith('http')) {
                       return (
@@ -111,7 +113,7 @@ export default function DetailsTable({ className }: DetailsTableProps) {
                         </div>
                       )
                     }
-                    
+
                     // Handle long text
                     if (typeof value === 'string' && value.length > 50) {
                       return (
@@ -120,12 +122,12 @@ export default function DetailsTable({ className }: DetailsTableProps) {
                         </div>
                       )
                     }
-                    
+
                     return <div className="font-medium">{(typeof value === 'string' || typeof value === 'number') ? value : '-'}</div>
                   },
-                } as ColumnDef<any>
+                } as ColumnDef<DetailRecord>
               })
-            
+
             setColumns(dynamicColumns)
           }
           
@@ -164,14 +166,7 @@ export default function DetailsTable({ className }: DetailsTableProps) {
   })
 
   if (loading) {
-    return (
-      <div className={`flex items-center justify-center h-64 ${className}`}>
-        <div className="text-center">
-          <div className="text-gray-500 mb-2">Loading details...</div>
-          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        </div>
-      </div>
-    )
+    return <TableSkeleton rows={10} columns={columns.length || 5} className={className} />
   }
 
   if (error) {

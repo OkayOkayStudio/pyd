@@ -17,6 +17,7 @@ import SchemaOptimizationSlide from '@/components/slides/SchemaOptimizationSlide
 import { FileText, Wrench, Edit, Target, ExternalLink, BarChart, MapPin, Zap } from 'lucide-react'
 import * as metrics from './metrics'
 import * as chartData from './chartData'
+import type { TableData, MetricData, PhaseData, QuickAction } from '@/lib/types'
 
 // Import markdown parsing capability
 interface MarkdownSlideData {
@@ -33,15 +34,19 @@ interface MarkdownSlideData {
   insights?: string[]
   recommendations?: string[]
   nextSteps?: string[]
-  tables?: any[]
-  metrics?: any[]
-  phases?: any[]
-  quickActions?: any[]
+  tables?: TableData[]
+  metrics?: MetricData[]
+  phases?: PhaseData[]
+  quickActions?: QuickAction[]
+}
+
+interface ChartConfig {
+  [key: string]: unknown
 }
 
 interface SlideData {
   id: string
-  component: React.ComponentType<any>
+  component: React.ComponentType<{isDarkMode?: boolean}>
   description: string
   section?: string
   sectionType?: 'intro' | 'content'
@@ -50,9 +55,9 @@ interface SlideData {
   // Traditional data structure (keeping for backwards compatibility)
   data?: {
     // Metrics and KPIs
-    metrics?: any[]
-    chartData?: any[]
-    tables?: any[]
+    metrics?: MetricData[]
+    chartData?: Record<string, string | number>[]
+    tables?: TableData[]
     // Textual content
     headline?: string
     subtitle?: string
@@ -61,8 +66,8 @@ interface SlideData {
     // Visual elements
     charts?: {
       type: 'bar' | 'line' | 'pie' | 'gauge' | 'funnel' | 'table'
-      data: any[]
-      config?: any
+      data: Record<string, string | number>[]
+      config?: ChartConfig
     }[]
     // Action items
     recommendations?: string[]
@@ -267,7 +272,7 @@ export const slides: SlideData[] = [
     data: {
       headline: 'Competitive Landscape Analysis',
       subtitle: 'Significant Performance Gaps Across All Metrics',
-      tables: [chartData.competitorTableData],
+      tables: chartData.competitorTableData,
       keyPoints: [
         'PYD ranks last across all key performance metrics',
         'Competitors achieve 100x more monthly traffic',

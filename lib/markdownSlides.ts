@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import type { TableData, MetricData, PhaseData, QuickAction } from './types'
 
 export interface MarkdownSlideData {
   id: string
@@ -16,10 +17,10 @@ export interface MarkdownSlideData {
   insights?: string[]
   recommendations?: string[]
   nextSteps?: string[]
-  tables?: any[]
-  metrics?: any[]
-  phases?: any[]
-  quickActions?: any[]
+  tables?: TableData[]
+  metrics?: MetricData[]
+  phases?: PhaseData[]
+  quickActions?: QuickAction[]
 }
 
 export function parseMarkdownSlides(markdownContent: string): MarkdownSlideData[] {
@@ -32,7 +33,7 @@ export function parseMarkdownSlides(markdownContent: string): MarkdownSlideData[
     const title = lines[0].replace('Slide', '').trim()
     
     // Extract metadata
-    const metadata: any = {}
+    const metadata: Record<string, string | string[] | number> = {}
     let contentStart = 1
     
     for (let i = 1; i < lines.length; i++) {
@@ -58,13 +59,13 @@ export function parseMarkdownSlides(markdownContent: string): MarkdownSlideData[
     const sections = remainingContent.split(/^###\s/m)
     
     const slide: MarkdownSlideData = {
-      id: metadata.id || title.toLowerCase().replace(/\s+/g, '-'),
-      section: metadata.section || 'general',
-      sectionType: metadata.type as 'intro' | 'content' || 'content',
-      priority: metadata.priority as 'critical' | 'high' | 'medium' | 'low' || 'medium',
-      tags: metadata.tags || [],
+      id: typeof metadata.id === 'string' ? metadata.id : title.toLowerCase().replace(/\s+/g, '-'),
+      section: typeof metadata.section === 'string' ? metadata.section : 'general',
+      sectionType: (typeof metadata.type === 'string' ? metadata.type as 'intro' | 'content' : 'content'),
+      priority: (typeof metadata.priority === 'string' ? metadata.priority as 'critical' | 'high' | 'medium' | 'low' : 'medium'),
+      tags: Array.isArray(metadata.tags) ? metadata.tags : [],
       title: title,
-      subtitle: metadata.subtitle,
+      subtitle: typeof metadata.subtitle === 'string' ? metadata.subtitle : undefined,
       description: '',
       content: remainingContent,
       keyPoints: [],

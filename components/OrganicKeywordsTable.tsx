@@ -32,6 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { TableSkeleton } from "@/components/ui/table-skeleton"
 
 export interface OrganicKeyword {
   keyword: string;
@@ -269,14 +270,7 @@ export default function OrganicKeywordsTable({ className }: OrganicKeywordsTable
   })
 
   if (loading) {
-    return (
-      <div className={`flex items-center justify-center h-64 ${className}`}>
-        <div className="text-center">
-          <div className="text-gray-500 mb-2">Loading keywords...</div>
-          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-        </div>
-      </div>
-    )
+    return <TableSkeleton rows={10} columns={7} className={className} />
   }
 
   if (error) {

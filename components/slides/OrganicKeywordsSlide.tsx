@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import OrganicKeywordsTable from '@/components/OrganicKeywordsTable';
+import { TableSkeleton } from '@/components/ui/table-skeleton';
 
 interface OrganicKeywordsSlideProps {
   isDarkMode?: boolean;
@@ -82,11 +83,8 @@ export default function OrganicKeywordsSlide({ isDarkMode = false }: OrganicKeyw
             {tableReady ? (
               <OrganicKeywordsTable className="bg-white shadow-lg rounded-lg p-6" />
             ) : (
-              <div className="flex items-center justify-center h-[500px] bg-white shadow-lg rounded-lg">
-                <div className="text-center">
-                  <div className="text-gray-500 mb-2">🔧 Loading keywords table after animation...</div>
-                  <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                </div>
+              <div className="bg-white shadow-lg rounded-lg p-6">
+                <TableSkeleton rows={8} columns={7} />
               </div>
             )}
           </div>

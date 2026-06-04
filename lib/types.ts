@@ -45,3 +45,40 @@ export interface MarkdownSlide {
   comparisonMetrics?: ComparisonMetrics
   missingOpportunities?: string[]
 }
+
+export interface TableData {
+  [key: string]: string | number
+}
+
+export interface MetricData {
+  label: string
+  value: string | number
+  change?: number
+  trend?: 'up' | 'down' | 'neutral'
+  description?: string
+  subtext?: string
+  status?: string
+}
+
+export interface PhaseData {
+  phase: string
+  duration: string
+  activities: string[]
+  deliverables: string[]
+}
+
+export interface QuickAction {
+  title: string
+  description: string
+  priority: 'critical' | 'high' | 'medium' | 'low'
+  effort: 'low' | 'medium' | 'high'
+  impact: 'low' | 'medium' | 'high'
+}
+
+export interface ChartDataPoint {
+  [key: string]: string | number | undefined
+}
+
+export interface DetailRecord {
+  [key: string]: string | number | boolean | null
+}
