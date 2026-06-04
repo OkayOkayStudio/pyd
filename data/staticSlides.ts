@@ -23,6 +23,7 @@ import RecommendationsSlide from '@/components/slides/RecommendationsSlide'
 import DetailsSlide from '@/components/slides/DetailsSlide'
 import CompetitorLinkAnalysisSlide from '@/components/slides/CompetitorLinkAnalysisSlide'
 import DefaultSlide from '@/components/slides/DefaultSlide'
+import AuditV2Slide from '@/components/slides/AuditV2Slide'
 
 // Component mapping is handled in getSlideComponent function below
 
@@ -43,6 +44,37 @@ const markdownSlides: MarkdownSlide[] = [
     keyPoints: [],
     insights: [],
     recommendations: [],
+    nextSteps: [],
+    visualRequirements: [],
+    rawContent: ''
+  },
+  {
+    id: 'audit-v2',
+    section: 'statement-of-work',
+    type: 'content',
+    priority: 'high',
+    tags: ['audit', 'v2', 'update', 'progress', 'june-2026'],
+    title: 'Since Initial Audit',
+    subtitle: 'Version 2 — Updated June 2026',
+    description: 'Comprehensive review of progress since the v1 baseline audit. Technical and on-page sections re-verified against the live site. Shows what has been resolved, what remains open, and critical new findings including the AhrefsBot block that prevents reporting updates.',
+    keyPoints: [
+      'Major improvements: XML sitemaps live, robots.txt configured, server-rendered meta tags',
+      'Critical new issue: AhrefsBot blocked site-wide, preventing SEO monitoring',
+      'New on-page findings: Generic H1s, missing canonical tags, meta description bugs',
+      'Analytics data pending refresh from March-September 2025 baseline'
+    ],
+    insights: [
+      'Technical foundation significantly stronger than v1 snapshot',
+      'Health score likely improved from 2.5/10 baseline with resolved blockers',
+      'Structured data (0% coverage) remains largest untapped opportunity',
+      'Portfolio images still client-rendered, invisible to Google Images'
+    ],
+    recommendations: [
+      'Remove AhrefsBot block to restore SEO monitoring capabilities',
+      'Ship structured data (Organization + Person schema) across all pages',
+      'Fix on-page quality: H1s, canonical tags, meta description template',
+      'Server-render portfolio imagery for image SEO and performance'
+    ],
     nextSteps: [],
     visualRequirements: [],
     rawContent: ''
@@ -977,7 +1009,12 @@ function getSlideComponent(slideId: string, markdownData: MarkdownSlide): React.
   if (slideId === 'competitor-link-analysis') {
     return () => React.createElement(CompetitorLinkAnalysisSlide, { markdownData } as any)
   }
-  
+
+  // Special handling for audit v2 slide
+  if (slideId === 'audit-v2') {
+    return () => React.createElement(AuditV2Slide, { markdownData } as any)
+  }
+
   // Return DefaultSlide with markdown data bound for all other slides
   return () => React.createElement(DefaultSlide, { markdownData } as any)
 }
